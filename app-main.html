@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ARLEM Validator - Main</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" onerror="var e=document.createElement('link');e.rel='stylesheet';e.href='https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.css';document.head.appendChild(e)" />
+    <link href="node_modules/jsoneditor/dist/jsoneditor.css" rel="stylesheet" onerror="var e=document.createElement('link');e.rel='stylesheet';e.href='https://cdn.jsdelivr.net/npm/jsoneditor@9/dist/jsoneditor.css';document.head.appendChild(e)" />
+  </head>
+  <body class="my-3">
+    <!--<script src="https://cdn.jsdelivr.net/npm/requirejs@2/require.js"></script>-->
+    <div class="container-fluid">
+      <h1>
+        ARLEM Validator <small class="text-muted">ALPHA</small>
+      </h1>
+      <div class="alert alert-warning" role="alert">
+        The validator is still in development and not to be used for actual validation yet.
+      </div>
+      <div id="container">
+        <noscript>JavaScript needs to be enabled.</noscript>
+        <!--<script src="app-main.js"></script>-->
+      </div>
+      <footer class="my-3">
+        <a href="https://github.com/openARLEM/arlem.js">GitHub</a>
+      </footer>
+    </div>
+    <script>
+    window.xloadcount = 0;
+    window.xload = function() {
+      if (typeof xload === "undefined" || ++xloadcount !== 1) return;
+      delete window.xload;
+      delete window.xloadcount;
+
+      //BABEL_ENV_TARGETS = "defaults"; // no need to set; is the default
+      BABEL_ENV_TARGETS = { "chrome": "85", "firefox": "81", "safari": "14" }; // latest as of 2020-09-24
+      //BABEL_ENV_TARGETS = "> 0.25%, not dead"
+      APP_LAUNCH_DELAY = 100; // ms to wait before launch for more reliable breakpoints
+
+      var e = document.createElement("script");
+      e.src = "app-main.js";
+      document.querySelector("#container").appendChild(e);
+    }
+    </script>
+    <script src="node_modules/requirejs/require.js" onload="xload()" onerror="var e=document.createElement('script');e.src='https://cdn.jsdelivr.net/npm/requirejs@2/require.js';e.onload=xload;document.head.appendChild(e)"></script>
+  </body>
+</html>

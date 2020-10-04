@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ARLEM Validator - Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mocha@8/mocha.css" />-->
+    <link rel="stylesheet" href="node_modules/mocha/mocha.css" onerror="var e=document.createElement('link');e.rel='stylesheet';e.href='https://cdn.jsdelivr.net/npm/mocha@8/mocha.css';document.head.appendChild(e)" />
+  </head>
+  <body>
+    <div id="mocha">
+      <noscript>JavaScript needs to be enabled.</noscript>
+    </div>
+    <!--<script src="https://cdn.jsdelivr.net/npm/mocha@8/mocha.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/requirejs@2/require.js"></script>-->
+    <script>
+    window.xloadcount = 0;
+    window.xload = function() {
+      if (typeof xload === "undefined" || ++xloadcount !== 2) return;
+      delete window.xload;
+      delete window.xloadcount;
+
+      //BABEL_ENV_TARGETS = "defaults"; // no need to set; is the default
+      BABEL_ENV_TARGETS = { "chrome": "85", "firefox": "81", "safari": "14" }; // latest as of 2020-09-24
+      //BABEL_ENV_TARGETS = "> 0.25%, not dead"
+      APP_LAUNCH_DELAY = 100; // ms to wait before launch for more reliable breakpoints
+
+      var e=document.createElement("script");e.src="app-test.js";document.head.appendChild(e);
+    };
+    </script>
+    <script src="node_modules/mocha/mocha.js" onload="xload()" onerror="var e=document.createElement('script');e.src='https://cdn.jsdelivr.net/npm/mocha@7/mocha.js';e.onload=xload;document.head.appendChild(e)"></script>
+    <script src="node_modules/requirejs/require.js" onload="xload()" onerror="var e=document.createElement('script');e.src='https://cdn.jsdelivr.net/npm/requirejs@2/require.js';e.onload=xload;document.head.appendChild(e)"></script>
+    <!--<script src="app-test.js"></script>-->
+  </body>
+</html>

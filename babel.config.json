@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": "defaults"
+      }
+    ],
+    [
+      "@babel/preset-react",
+      {
+      }
+    ]
+  ],
+  "plugins": [
+  ]
+}

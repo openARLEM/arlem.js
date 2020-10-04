@@ -1,0 +1,39 @@
+{
+  "title": "Workplace",
+  "description": "Object containing workplace details",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Id",
+      "description": "Unique identifier of the workplace",
+      "examples": [
+        "myworkplace"
+      ],
+      "type": "string",
+      "maxLength": 100
+    },
+    "name": {
+      "title": "Name",
+      "description": "Human readable descriptive name of the workplace",
+      "examples": [
+        "My workplace"
+      ],
+      "type": "string",
+      "maxLength": 1000
+    },
+    "origin": {
+      "title": "Origin",
+      "description": "The id of a detectable that marks the world origin for the work place",
+      "examples": [
+        "001"
+      ],
+      "type": "string",
+      "maxLength": 100
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "origin"
+  ]
+}

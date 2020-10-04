@@ -1,0 +1,8 @@
+{
+  "id": "assembly101",
+  "name": "Assembly of an artifact",
+  "description": "An elaborate description",
+  "language": "en",
+  "workplace": "http://example.org/workplace.json",
+  "start": "step1"
+}

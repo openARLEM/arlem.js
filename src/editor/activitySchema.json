@@ -1,0 +1,69 @@
+{
+  "title": "Activity",
+  "description": "Object containing activity details",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Id",
+      "description": "Unique identifier",
+      "examples": [
+        "assembly101"
+      ],
+      "type": "string",
+      "maxLength": 100
+    },
+    "name": {
+      "title": "Name",
+      "description": "Human readable name of the activity",
+      "examples": [
+        "Assembly of an artifact"
+      ],
+      "type": "string",
+      "maxLength": 1000
+    },
+    "description": {
+      "title": "Description",
+      "description": "Human readable description of the activity",
+      "examples": [
+        "An elaborate description"
+      ],
+      "type": "string",
+      "maxLength": 10000
+    },
+    "language":  {
+      "title": "Language",
+      "description": "Specifies the language with which the activity expresses human-readable instructional prompts",
+      "examples": [
+        "en"
+      ],
+      "type": "string",
+      "maxLength": 2
+    },
+    "workplace": {
+      "title": "Workplace",
+      "description": "Reference to the workplace model",
+      "examples": [
+        "http://example.org/workplace.json"
+      ],
+      "type": "string",
+      "maxLength": 2000
+    },
+    "start": {
+      "title": "Start",
+      "description": "Reference to the action to start with",
+      "examples": [
+        "step1"
+      ],
+      "type": "string",
+      "maxLength": 100
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "language",
+    "workplace",
+    "start"
+  ]
+}
