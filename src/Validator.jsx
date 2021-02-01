@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 
 import activitySchema from './editor/activitySchema.json';
+import activitySchemaRefs from './editor/activitySchemaRefs.json';
 import activityExample from './editor/activityExample.json';
 import workplaceSchema from './editor/workplaceSchema.json';
+import workplaceSchemaRefs from './editor/workplaceSchemaRefs.json';
 import workplaceExample from './editor/workplaceExample.json';
 
 export default function Validator() {
@@ -24,11 +26,13 @@ export default function Validator() {
       };
       const activityOptions = {
         ...options,
-        schema: activitySchema
+        schema: activitySchema,
+        schemaRefs: activitySchemaRefs
       };
       const workplaceOptions = {
         ...options,
-        schema: workplaceSchema
+        schema: workplaceSchema,
+        schemaRefs: workplaceSchemaRefs
       };
 
       let activityEditor = new JSONEditor(activityEditorContainer, activityOptions);

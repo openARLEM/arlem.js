@@ -2,6 +2,12 @@
   "title": "Workplace",
   "description": "Object containing workplace details",
   "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "origin"
+  ],
   "properties": {
     "id": {
       "title": "Id",
@@ -29,11 +35,638 @@
       ],
       "type": "string",
       "maxLength": 100
+    },
+    "things": {
+      "title": "Things",
+      "description": "An array of definitions of the physical workplace objects such as tools, machines, furniture, or materials",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "detectable"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier of the thing",
+            "examples": [
+              "helicopter"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "name": {
+            "title": "Name",
+            "description": "Human-readable short description of the thing",
+            "examples": [
+              "AW 109"
+            ],
+            "type": "string",
+            "maxLength": 1000
+          },
+          "detectable": {
+            "title": "Detectable",
+            "description": "Specify by id which detectable applies to this thing",
+            "examples": [
+              "333"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "pois": {
+            "$ref": "pois"
+          }
+        }
+      }
+    },
+    "places": {
+      "title": "Places",
+      "description": "Places are tangibles, referring to locations within the workplace",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "detectable"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier of the place",
+            "examples": [
+              "platform"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "name": {
+            "title": "Name",
+            "description": "Human-readable short description of the place",
+            "examples": [
+              "Platform"
+            ],
+            "type": "string",
+            "maxLength": 1000
+          },
+          "detectable": {
+            "title": "Detectable",
+            "description": "Specify by id which detectable is to be used for recognizing this place",
+            "examples": [
+              "006"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "pois": {
+            "$ref": "pois"
+          }
+        }
+      }
+    },
+    "persons": {
+      "title": "Persons",
+      "description": "Persons refer to the people in the workplace with whom the user may interact",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "twitter",
+          "mbox",
+          "detectable",
+          "persona"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier of the person",
+            "examples": [
+              "john"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "name": {
+            "title": "Name",
+            "description": "The individual's name",
+            "examples": [
+              "John Smith"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "twitter": {
+            "title": "Twitter",
+            "description": "The individual's Twitter handle",
+            "examples": [
+              "example"
+            ],
+            "type": "string",
+            "maxLength": 15
+          },
+          "mbox": {
+            "title": "Mbox",
+            "description": "The identifier to be used for the xAPI (email address)",
+            "examples": [
+              "john.smith@example.com"
+            ],
+            "type": "string",
+            "maxLength": 254
+          },
+          "detectable": {
+            "title": "Detectable",
+            "description": "The id of the detectable with which this person can be recognized",
+            "examples": [
+              "002"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "pois": {
+            "$ref": "pois"
+          }
+        }
+      }
+    },
+    "sensors": {
+      "title": "Sensors",
+      "description": "Sensors are hardware devices that detect or measure physical characteristics and communicate the data generated digitially",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "url",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "arduino"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "url": {
+            "title": "URL",
+            "description": "API endpoint for IoT communication (URL including protocol and port)",
+            "examples": [
+              "mqtt://wekit.eu:1883"
+            ],
+            "type": "string",
+            "maxLength": 1000,
+            "format": "uri"
+          },
+          "username": {
+            "title": "User name",
+            "description": "Authentication information",
+            "examples": [
+              "wekit"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "password": {
+            "title": "Password",
+            "description": "Authentication information",
+            "examples": [
+              "secret"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "data": {
+            "title": "Data",
+            "description": "One or more data elements describe how to parse the data stream",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "key",
+                "type"
+              ],
+              "properties": {
+                "key": {
+                  "title": "Key",
+                  "description": "The variable identifier in the data stream",
+                  "examples": [
+                    "heartrate"
+                  ],
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "type": {
+                  "title": "Type",
+                  "description": "The data type of the variable (\"string\", \"float\", \"integer\", or \"boolean\")",
+                  "enum": [
+                    "string",
+                    "float",
+                    "integer",
+                    "boolean"
+                  ],
+                  "type": "string",
+                  "maxLength": 50
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "devices": {
+      "title": "Devices",
+      "description": "Devices are the AR hardware delivery systems that the AR training system may communicate with to render the learning experience for the user",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "name",
+          "url",
+          "username",
+          "password"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "myholo"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "type": {
+            "title": "Type",
+            "description": "Type of device",
+            "examples": [
+              "hololens",
+              "ipad"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "name": {
+            "title": "Name",
+            "description": "Human-readable name of the device",
+            "examples": [
+              "My smart glasses"
+            ],
+            "type": "string",
+            "maxLength": 1000
+          },
+          "owner": {
+            "title": "Owner",
+            "description": "The person id of the owner of a device",
+            "examples": [
+              "john"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "url": {
+            "title": "URL",
+            "description": "API endpoint for device communication (URL including protocol and port)",
+            "examples": [
+              "mqtt://test.mosquitto.org:1883"
+            ],
+            "type": "string",
+            "maxLength": 1000,
+            "format": "uri"
+          },
+          "topic": {
+            "title": "Topic",
+            "description": "The channel name on which the device listens for messages",
+            "examples": [
+              "hangarchat"
+            ],
+            "type": "string",
+            "maxLength": 1000
+          },
+          "username": {
+            "title": "User name",
+            "description": "Authentication information",
+            "examples": [
+              "wekit"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "password": {
+            "title": "Password",
+            "description": "Authentication information",
+            "examples": [
+              "secret"
+            ],
+            "type": "string",
+            "maxLength": 100
+          }
+        }
+      }
+    },
+    "apps": {
+      "title": "Apps",
+      "description": "Definitions of how to interface the AR training system with other apps and widgets",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "id",
+          "name",
+          "url"
+        ],
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Type of application: HTML widget, launch command, or app prefab (\"widget\", \"app\", or \"prefab\")",
+            "enum": [
+              "widget",
+              "app",
+              "prefab"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "rating"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "name": {
+            "title": "Name",
+            "description": "Human-readable short description",
+            "examples": [
+              "User Feedback"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "url": {
+            "title": "URL",
+            "description": "URL of the manifest file, launch command, or download link for an app prefab asset (URL)",
+            "examples": [
+              "http://wekit.eu/rating.wdgt"
+            ],
+            "type": "string",
+            "maxLength": 1000,
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "detectables": {
+      "title": "Detectables",
+      "description": "Detectables are entities that link to fiducial markers, target feature models, or other sensor state properties providing input to the computer vision system",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "005"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "sensor": {
+            "title": "Sensor",
+            "description": "The type of AR tracking subsystem to be used for its detection (\"tracking\" or \"mapping\"))",
+            "enum": [
+              "tracking",
+              "mapping"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "type": {
+            "title": "Type",
+            "description": "May be either a marker or workplace anchor relative to the worplace origin (\"marker\" or \"anchor\")",
+            "enum": [
+              "marker",
+              "anchor"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "url": {
+            "title": "URL",
+            "description": "URL pointing to the asset bundle with additional data (URL)",
+            "examples": [
+              "http://wekit.eu/rating.wdgt"
+            ],
+            "type": "string",
+            "maxLength": 2000,
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "primitives": {
+      "title": "Primitives",
+      "description": "Augmentation primitives define the fundamental types of annotations available in the AR system",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
+            "enum": [
+              "animation",
+              "image",
+              "video",
+              "audio",
+              "label"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "x-size": {
+            "title": "X-size",
+            "description": "Initial sizing values for images and objects (cm.mm 0.01-1000.00, as float in string)",
+            "examples": [
+              "0.01"
+            ],
+            "type": "string",
+            "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+          },
+          "y-size": {
+            "title": "Y-size",
+            "description": "Initial sizing values for images and objects (cm.mm 0.01-1000.00, as float in string)",
+            "examples": [
+              "0.01"
+            ],
+            "type": "string",
+            "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+          },
+          "z-size": {
+            "title": "Z-size",
+            "description": "Initial sizing values for images and objects (cm.mm 0.01-1000.00, as float in string)",
+            "examples": [
+              "0.01"
+            ],
+            "type": "string",
+            "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+          },
+          "volume": {
+            "title": "Volume",
+            "description": "A volume setting, used for auditory primitives (integer 0-100)",
+            "examples": [
+              50
+            ],
+            "type": "integer",
+            "min": 0,
+            "max": 100
+          }
+        }
+      }
+    },
+    "predicates": {
+      "title": "Predicates",
+      "description": "Predicates are reusable instructional augmentations, configuring a specific augmentation primitive augmentation primitive for its use in activities",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "scale",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "point"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "type": {
+            "title": "Type",
+            "description": "An instance of primitive.id (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
+            "enum": [
+              "animation",
+              "image",
+              "video",
+              "audio",
+              "label"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "scale": {
+            "title": "Scale",
+            "description": "A (normalized) scaling factor to be applied to the primitive, across all axes (cm.mm 0.01-1000.00, as float in string)",
+            "examples": [
+              "1"
+            ],
+            "type": "string",
+            "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+          },
+          "url": {
+            "title": "URL",
+            "description": "URL pointing to a downloadable file with the augmentation (URL)",
+            "examples": [
+              "http://wekit.eu/point.fbx"
+            ],
+            "type": "string",
+            "maxLength": 1000,
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "warnings": {
+      "title": "Warnings",
+      "description": "Definition of the supported warnings and instructions",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "symbol",
+          "scale"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "point"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "type": {
+            "title": "Type",
+            "description": "An instance of primitive.id (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
+            "enum": [
+              "animation",
+              "image",
+              "video",
+              "audio",
+              "label"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "symbol": {
+            "title": "Symbol",
+            "description": "Name of the symbol prefab",
+            "examples": [
+              "eyeprotection"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "scale": {
+            "title": "Scale",
+            "description": "A (normalized) scaling factor to be applied to the primitive, across all axes (cm.mm 0.01-1000.00, as float in string)",
+            "examples": [
+              "1"
+            ],
+            "type": "string",
+            "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+          }
+        }
+      }
     }
-  },
-  "required": [
-    "id",
-    "name",
-    "origin"
-  ]
+  }
 }

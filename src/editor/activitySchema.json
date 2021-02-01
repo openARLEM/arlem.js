@@ -2,6 +2,15 @@
   "title": "Activity",
   "description": "Object containing activity details",
   "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "description",
+    "language",
+    "workplace",
+    "start"
+  ],
   "properties": {
     "id": {
       "title": "Id",
@@ -30,9 +39,9 @@
       "type": "string",
       "maxLength": 10000
     },
-    "language":  {
+    "language": {
       "title": "Language",
-      "description": "Specifies the language with which the activity expresses human-readable instructional prompts",
+      "description": "Specifies the language with which the activity expresses human-readable instructional prompts (ISO 639-1 language code)",
       "examples": [
         "en"
       ],
@@ -41,7 +50,7 @@
     },
     "workplace": {
       "title": "Workplace",
-      "description": "Reference to the workplace model",
+      "description": "Reference to the workplace model (workplace.id)",
       "examples": [
         "http://example.org/workplace.json"
       ],
@@ -50,20 +59,236 @@
     },
     "start": {
       "title": "Start",
-      "description": "Reference to the action to start with",
+      "description": "Reference to the action to start with (action.id)",
       "examples": [
         "step1"
       ],
       "type": "string",
       "maxLength": 100
+    },
+    "actions": {
+      "title": "Actions",
+      "description": "Action elements describing the steps of the learning activity",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "viewport",
+          "type",
+          "enter",
+          "exit",
+          "triggers"
+        ],
+        "properties": {
+          "id": {
+            "title": "Id",
+            "description": "Unique identifier",
+            "examples": [
+              "step1"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "viewport": {
+            "title": "Viewport",
+            "description": "The visual area in which any instruction contained in the action displayed",
+            "enum": [
+              "actions",
+              "reactions",
+              "warnings"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "type": {
+            "title": "Type",
+            "description": "Specifies the category of the action and is used for styling visual appearance",
+            "enum": [
+              "actions",
+              "reactions",
+              "warnings"
+            ],
+            "type": "string",
+            "maxLength": 100
+          },
+          "device": {
+            "title": "Device",
+            "description": "Specify on which device to execute the action (device.id in the workplace model)",
+            "type": "string",
+            "maxLength": 100
+          },
+          "location": {
+            "title": "Location",
+            "description": "Refer to a particular place where the action happens (place.id in the workplace model)",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "predicate": {
+            "title": "Predicate",
+            "description": "The action may specify what verb to log user interaction with via the xAPI (predicate.id in the workplace model)",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "instruction": {
+            "title": "Instruction",
+            "description": "Human-readable directives and prompts for the learner for this particular action step",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "description"
+            ],
+            "properties": {
+              "title": {
+                "title": "Title",
+                "description": "The headline of the instruction",
+                "type": "string",
+                "maxLength": 100
+              },
+              "description": {
+                "title": "Description",
+                "description": "More detailed instruction",
+                "type": "string",
+                "maxLength": 5000
+              }
+            }
+          },
+          "enter": {
+            "title": "Enter",
+            "description": "Container for augmentations that will be activated or deactivated, and which messages and validation rules will be executed, once the action step is launched",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "removeSelf": {
+                "title": "Remove self",
+                "description": "If set to true, the action triggers the immediate execution of the exit loop once activate, deactivate, message, and if statements contained in this enter loop have been rendered",
+                "type": "boolean",
+                "default": false
+              },
+              "activates": {
+                "$ref": "activates"
+              },
+              "deactivates": {
+                "$ref": "deactivates"
+              },
+              "messages": {
+                "$ref": "messages"
+              },
+              "if": {
+                "$ref": "if"
+              }
+            }
+          },
+          "exit": {
+            "title": "Exit",
+            "description": "Container for augmentations that will be activated or deactivated, and which messages and validation rules will be executed, once the action step is exited",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "removeSelf": {
+                "title": "Remove self",
+                "description": "If set to true, the action itself is removed before the statements of the exit block are evaluated",
+                "type": "boolean",
+                "default": true
+              },
+              "activates": {
+                "$ref": "activates"
+              },
+              "deactivates": {
+                "$ref": "deactivates"
+              },
+              "messages": {
+                "$ref": "messages"
+              },
+              "if": {
+                "$ref": "if"
+              }
+            }
+          },
+          "triggers": {
+            "title": "Triggers",
+            "description": "The trigger is enabled after the statements on the enter stack have been evaluated, starting the execution of the stack of exit statements when released",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "description": "Reference of the action, sensor, or tangible the trigger is listening to (action.id, tangible.id, or sensor.id)",
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "mode": {
+                  "title": "Mode",
+                  "description": "There are three different types of triggers, including the ones driven by the user (\"click\" and \"voice\" triggers), the ones driven by visibility of tangibles (\"detect\" triggers), and the ones driven by sensors (\"sensor\" triggers)",
+                  "enum": [
+                    "sensor",
+                    "detect",
+                    "click",
+                    "voice"
+                  ],
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "duration": {
+                  "title": "Duration",
+                  "description": "For \"detect\" triggers, a duration for the gaze lock may be specified",
+                  "type": "integer"
+                },
+                "type": {
+                  "title": "Type",
+                  "description": "Specify type of the entity it is sensitive to (\"tangible\" or \"action\")",
+                  "enum": [
+                    "tangible",
+                    "action"
+                  ],
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "viewport": {
+                  "title": "Viewport",
+                  "description": "Specify area of the display (\"actions\", \"reactions\", or \"warnings\")",
+                  "enum": [
+                    "actions",
+                    "reactions",
+                    "warnings"
+                  ],
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "key": {
+                  "title": "Key",
+                  "description": "Variable to check, in the case that mode is \"sensor\"",
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "value": {
+                  "title": "Value",
+                  "description": "Value to check variable for having reached, in the case that mode is \"sensor\"",
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "operator": {
+                  "title": "Operator",
+                  "description": "Operator for comparing value read from value specified, in the case that mode is \"sensor\", assumed to be \"equal\" if not specified (\"exceed\", \"below\", \"equal\", or \"between\")",
+                  "enum": [
+                    "exceed",
+                    "below",
+                    "equal",
+                    "between"
+                  ],
+                  "type": "string",
+                  "maxLength": 100
+                }
+              }
+            }
+          }
+        }
+      }
     }
-  },
-  "required": [
-    "id",
-    "name",
-    "description",
-    "language",
-    "workplace",
-    "start"
-  ]
+  }
 }

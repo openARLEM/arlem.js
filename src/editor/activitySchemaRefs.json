@@ -1,0 +1,328 @@
+{
+  "activates": {
+    "title": "Activates",
+    "description": "Statement to execute effector output: load and display an augmentation to the user",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "type",
+        "augmentation"
+      ],
+      "properties": {
+        "target": {
+          "title": "Target",
+          "description": "Reference to unique identifier of a tangible in the workplace model (thing.id, place.id, or person.id)",
+          "examples": [
+            "board1"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "type": {
+          "title": "Type",
+          "description": "Specify which augmentation type the id refers to (\"primitive\", \"predicate\", \"warning\", or \"action\")",
+          "enum": [
+            "primitive",
+            "predicate",
+            "warning",
+            "action"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "augmentation": {
+          "title": "Augmentation",
+          "description": "Instruct the AR training system to play or display the augmentation with the target id provided (predicate.id, primitive.id, warning.id, or action.id)",
+          "examples": [
+            "point"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "poi": {
+          "title": "POI",
+          "description": "Specify the point of interest of the tangible where the augmentation will be displayed (poi.id of tangible's poi in workplace model)",
+          "examples": [
+            "top"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "option": {
+          "title": "Option",
+          "description": "Configuration option for the augmentation",
+          "examples": [
+            "up",
+            "stream"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "viewport": {
+          "title": "Viewport",
+          "description": "Specify the area of the display where the augmentation is to be displayed (\"actions\", \"reactions\", or \"warnings\")",
+          "enum": [
+            "actions",
+            "reactions",
+            "warnings"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "url": {
+          "title": "URL",
+          "description": "URL from which to load, in the case that \"type\" is \"primitive\" and depending on the value of \"augmentation\", a JPEG/PNG image or MP4 video file (\"augmentation\" is \"image\" or \"video\"), an animation FBX file (\"augmentation\" is \"animation\"), or WAV or MP3 file (\"augmentation\" is \"audio\")",
+          "examples": [
+            "https://example.org/my3d.fbx"
+          ],
+          "type": "string",
+          "maxLength": 2000,
+          "format": "uri"
+        },
+        "state": {
+          "title": "State",
+          "description": "The key frame to move to in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"animation\"",
+          "example": [
+            "1"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "text": {
+          "title": "text",
+          "description": "The character string to display at a specific tangible's default location, or any specific POI of the tangible, in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"label\"",
+          "example": [
+            "This is the left side"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "sensor": {
+          "title": "text",
+          "description": "Id of sensor that may be connected to for displaying data of variable specified in \"key\", in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"label\"",
+          "example": [
+            "arduino"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "key": {
+          "title": "text",
+          "description": "Variable for which to display data after connecting to sensor with id specified in \"sensor\", in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"label\"",
+          "example": [
+            "voltage"
+          ],
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    }
+  },
+  "deactivates": {
+    "title": "Deactivates",
+    "description": "Statement to remove augmentations",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "type",
+        "augmentation"
+      ],
+      "properties": {
+        "target": {
+          "title": "Target",
+          "description": "Specify target id of a tangible in the workplace model to remove all or specific augmentations attached to it, or an action.id from the activity, or use wildcard \"*\" to remove from all tangibles (thing.id, place.id, person.id, action.id, or \"*\")",
+          "examples": [
+            "board1"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "type": {
+          "title": "Type",
+          "description": "Specify which type of workplace element the id references, or use wildcard \"*\" for all types (\"primitive\", \"predicate\", \"warning\", \"action\", or \"*\")",
+          "enum": [
+            "primitive",
+            "predicate",
+            "warning",
+            "action",
+            "*"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "augmentation": {
+          "title": "Augmentation",
+          "description": "Specify id of the augmentation or action to remove, or use wildcard \"*\" for all augmentations (predicate.id, primitive.id, warning.id, action.id, or \"*\")",
+          "examples": [
+            "point"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "poi": {
+          "title": "POI",
+          "description": "Specify the point of interest from where to remove the augmentation (poi.id of the tangible referenced in \"target\")",
+          "examples": [
+            "top"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "viewport": {
+          "title": "Viewport",
+          "description": "Specify from which viewport to remove the augmentation (\"actions\", \"reactions\", or \"warnings\")",
+          "enum": [
+            "actions",
+            "reactions",
+            "warnings"
+          ],
+          "type": "string",
+          "maxLength": 100
+        }
+      }
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "description": "Specify message statements to allow sending control commands and communication from device to device and user to user",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "type"
+      ],
+      "properties": {
+        "target": {
+          "title": "Target",
+          "description": "Reference to person, device, or sensor (person.id, device.id, or sensor.id)",
+          "examples": [
+            "jane"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "type": {
+          "title": "Type",
+          "description": "Whether to send a communication message to a person or a control message to a device or sensor (\"person\", \"device\", or \"sensor\")",
+          "enum": [
+            "person",
+            "device",
+            "sensor"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "viewport": {
+          "title": "Viewport",
+          "description": "Specify a particular viewport in which to display the message (\"alerts\", \"actions\", or \"reactions\")",
+          "enum": [
+            "alerts",
+            "actions",
+            "reactions"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "key": {
+          "title": "text",
+          "description": "Specify which variable key (MQTT \"topic\") to use for broadcasting the message contents",
+          "example": [
+            "messages"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "launch": {
+          "title": "text",
+          "description": "Specify which action shall be launched on the recipient device (action.id)",
+          "example": [
+            "action15"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "text": {
+          "title": "text",
+          "description": "The message content as human readable text is included as the text node of the message element",
+          "example": [
+            "Job is done!"
+          ],
+          "type": "string",
+          "maxLength": 1000
+        }
+      }
+    }
+  },
+  "if": {
+    "title": "If",
+    "description": "Specify a rule for validating user behavior and other characteristics with defined queries to determine branching of the flow of action",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "then",
+        "else"
+      ],
+      "properties": {
+        "url": {
+          "title": "URL",
+          "description": "The query URL (for statement retrieval via GET), including all parameters",
+          "examples": [
+            "http://example.com/xAPI/statements?verb=passed&activity=id"
+          ],
+          "type": "string",
+          "maxLength": 2000,
+          "format": "uri"
+        },
+        "then": {
+          "title": "Then",
+          "description": "Specify which action to trigger if the query yields one or more (or the specified number) of results (action.id)",
+          "examples": [
+            "startAction"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "else": {
+          "title": "Else",
+          "description": "Specify which action to trigger if the query yields no results (action.id)",
+          "examples": [
+            "prohibitAction"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "min": {
+          "title": "Min",
+          "description": "Check whether there are at least this number of results",
+          "example": [
+            "2"
+          ],
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "max": {
+          "title": "Max",
+          "description": "Check whether there are no more than this number of results",
+          "example": [
+            "10"
+          ],
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        }
+      }
+    }
+  }
+}
