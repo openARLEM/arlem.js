@@ -14,9 +14,10 @@ export default function Validator() {
   const workplaceEditorContainerRef = useRef();
   const activityEditorRef = useRef();
   const workplaceEditorRef = useRef();
-  const [results, setResults] = useState({ activity: [], workplace: [] });
-  const [activityErrors, setActivityErrors] = useState([]);
-  const [workplaceErrors, setWorkplaceErrors] = useState([]);
+  const [validationType, setValidationType] = useState('all');
+  const [activityErrors, setActivityErrors] = useState(null);
+  const [workplaceErrors, setWorkplaceErrors] = useState(null);
+  const [referenceErrors, setReferenceErrors] = useState(null);
 
   useEffect(() => {
     const activityEditorContainer = activityEditorContainerRef.current;
@@ -72,21 +73,90 @@ export default function Validator() {
   function validate() {
     const activityEditor = activityEditorRef.current;
     const workplaceEditor = workplaceEditorRef.current;
+
+    // Activity
     let activity = activityEditor.get();
-    let validActivity = activityEditor.validate(activity);
-    if (!validActivity) {
-      console.log(activityEditor.validate.errors);
-      setActivityErrors(activityEditor.validate.errors);
+    if (validationType === 'all' || validationType === 'activity') {
+      let validActivity = activityEditor.validate(activity);
+      if (!validActivity) {
+        console.log(activityEditor.validate.errors);
+        setActivityErrors(activityEditor.validate.errors);
+      } else {
+        setActivityErrors([]);
+      }
     } else {
-      setActivityErrors([]);
+      setActivityErrors(null);
     }
+
+    // Workplace
     let workplace = workplaceEditor.get();
-    let validWorkplace = workplaceEditor.validate(workplace);
-    if (!validWorkplace) {
-      console.log(workplaceEditor.validate.errors);
-      setWorkplaceErrors(workplaceEditor.validate.errors);
+    if (validationType === 'all' || validationType === 'workplace') {
+      let validWorkplace = workplaceEditor.validate(workplace);
+      if (!validWorkplace) {
+        console.log(workplaceEditor.validate.errors);
+        setWorkplaceErrors(workplaceEditor.validate.errors);
+      } else {
+        setWorkplaceErrors([]);
+      }
     } else {
-      setWorkplaceErrors([]);
+      setWorkplaceErrors(null);
+    }
+
+    if (validationType === 'all') {
+      // Analyze workplace
+      const objectTypes = ['things', 'places', 'persons', 'sensors', 'devices', 'apps',
+        'detectables', 'primitives', 'predicates', 'warnings'];
+      let objectIds = objectTypes.reduce((aggr, objectType) => {
+        aggr[objectType] = Array.isArray(workplace[objectType])
+          ? workplace[objectType].map(obj => obj.id)
+          : [];
+        return aggr;
+      }, {});
+
+      // Cross-references
+      const referenceTypes = [
+        { path: ['actions'], property: 'device', types: ['devices'] },
+        { path: ['actions'], property: 'location', types: ['places'] },
+        { path: ['actions'], property: 'predicate', types: ['predicates'] },
+        { path: ['actions', 'enter', 'activates'], property: 'target', types: ['things', 'places', 'persons'] },
+        { path: ['actions', 'enter', 'activates'], property: 'augmentation', types: ['predicates', 'primitives', 'warnings'] }, // TODO actions
+        { path: ['actions', 'enter', 'activates'], property: 'poi', types: ['things', 'places', 'persons'] }, // TODO Verify (only) these are tangible
+        { path: ['actions', 'enter', 'deactivates'], property: 'target', types: ['things', 'places', 'persons'] },
+        { path: ['actions', 'enter', 'deactivates'], property: 'augmentation', types: ['predicates', 'primitives', 'warnings'] }, // TODO actions, wildcard ('*')
+        { path: ['actions', 'enter', 'deactivates'], property: 'poi', types: ['things', 'places', 'persons'] } // TODO Verify (only) these are tangible
+      ];
+      let referenceErrors = [];
+      const checkReferences = (current, path, dataPath, property, types) => {
+        if (path.length > 0) {
+          let segment = path[0];
+          let remaining = path.slice(1);
+          if (Array.isArray(current[segment])) {
+            current[segment].forEach((item, itemIndex) => {
+              checkReferences(item, remaining,
+                `${dataPath}.${segment}[${itemIndex}]`, property, types);
+            });
+          } else {
+            checkReferences(current[segment], remaining,
+              `${dataPath}.${segment}`, property, types);
+          }
+        } else if (current.hasOwnProperty(property)) {
+          let objectId = current[property];
+          let found = false;
+          types.forEach(type => {
+            if (objectIds[type].indexOf(objectId) !== -1) {
+              found = true;
+            }
+          });
+          if (!found) {
+            referenceErrors.push({ dataPath, keyword: 'notFound', params: { property, objectId, types } });
+          }
+        }
+      };
+      referenceTypes.forEach(referenceType =>
+        checkReferences(activity, referenceType.path, '', referenceType.property, referenceType.types));
+      setReferenceErrors(referenceErrors);
+    } else {
+      setReferenceErrors(null);
     }
   }
 
@@ -103,34 +173,46 @@ export default function Validator() {
       <form className="my-3" onSubmit={event => { event.preventDefault(); validate(); }}>
         <div className="custom-control-inline">Validation:</div>
         <div className="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline1" name="customRadioInline" className="custom-control-input" checked
-            onChange={event => { }} />
-          <label className="custom-control-label" htmlFor="customRadioInline1">Activity and workplace models including cross-references</label>
+          <input type="radio" id="validationTypeAll" className="custom-control-input" checked
+            onChange={event => { setValidationType('all'); }} checked={validationType === 'all'} />
+          <label className="custom-control-label" htmlFor="validationTypeAll">Activity and workplace models including cross-references</label>
         </div>
         <div className="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline2" name="customRadioInline" className="custom-control-input"
-            onChange={event => { alert('TODO'); }} />
-          <label className="custom-control-label" htmlFor="customRadioInline2">Activity model</label>
+          <input type="radio" id="validationTypeActivity" className="custom-control-input"
+            onChange={event => { setValidationType('activity'); }} checked={validationType === 'activity'} />
+          <label className="custom-control-label" htmlFor="validationTypeActivity">Activity model</label>
         </div>
         <div className="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline3" name="customRadioInline" className="custom-control-input"
-            onChange={event => { alert('TODO'); }} />
-          <label className="custom-control-label" htmlFor="customRadioInline3">Workplace model</label>
+          <input type="radio" id="validationTypeWorkplace" className="custom-control-input"
+            onChange={event => { setValidationType('workplace'); }} checked={validationType === 'workplace'} />
+          <label className="custom-control-label" htmlFor="validationTypeWorkplace">Workplace model</label>
         </div>
         <button type="submit" className="btn btn-primary mb-2">Validate</button>
       </form>
-      <div>
-        <h3 style={{ display: activityErrors.length > 0 ? 'block' : 'none' }}>Activity</h3>
-        {activityErrors.map((activityError, index) => (
-          <div key={index}>{activityError.dataPath + ': ' + activityError.message}</div>
-        ))}
-      </div>
-      <div>
-        <h3 style={{ display: workplaceErrors.length > 0 ? 'block' : 'none' }}>Workplace</h3>
-        {workplaceErrors.map((workplaceError, index) => (
-          <div key={index}>{workplaceError.dataPath + ': ' + workplaceError.message}</div>
-        ))}
-      </div>
+      {activityErrors === null ? <></> :
+        <div className="my-2">
+          <h3>Activity</h3>
+          {activityErrors.map((activityError, index) => (
+            <div key={index}>{activityError.dataPath}: {activityError.keyword} ({JSON.stringify(activityError.params)})</div>
+          ))}
+        </div>
+      }
+      {workplaceErrors === null ? <></> :
+        <div className="my-2">
+          <h3>Workplace</h3>
+          {workplaceErrors.map((workplaceError, index) => (
+            <div key={index}>{workplaceError.dataPath}: {workplaceError.keyword} ({JSON.stringify(workplaceError.params)})</div>
+          ))}
+        </div>
+      }
+      {referenceErrors === null ? <></> :
+        <div className="my-2">
+          <h3>References</h3>
+          {referenceErrors.map((referenceError, index) => (
+            <div key={index}>{referenceError.dataPath}: {referenceError.keyword} ({JSON.stringify(referenceError.params)})</div>
+          ))}
+        </div>
+      }
     </div>
   );
 }
