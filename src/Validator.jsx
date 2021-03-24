@@ -9,7 +9,7 @@ import workplaceSchemaRefs from './editor/workplaceSchemaRefs.json';
 import workplaceExample from './editor/workplaceExample.json';
 import { useState } from 'react';
 
-export default function Validator() {
+export default function Validator({ options }) {
   const activityEditorContainerRef = useRef();
   const workplaceEditorContainerRef = useRef();
   const activityEditorRef = useRef();
@@ -28,17 +28,17 @@ export default function Validator() {
       JSONEditor = JSONEditor.default;
       const Ajv = JSONEditor.Ajv;
 
-      const options = {
+      const editorOptions = {
         mode: 'tree',
         modes: ['tree', 'view', 'form', 'code', 'text', 'preview']
       };
       const activityOptions = {
-        ...options,
+        ...editorOptions,
         schema: activitySchema,
         schemaRefs: activitySchemaRefs
       };
       const workplaceOptions = {
-        ...options,
+        ...editorOptions,
         schema: workplaceSchema,
         schemaRefs: workplaceSchemaRefs
       };
@@ -60,13 +60,31 @@ export default function Validator() {
       }).compile(workplaceSchema);
 
       let activityEditor = new JSONEditor(activityEditorContainer, activityOptions);
-      activityEditor.set(activityExample);
       activityEditor.validate = activityValidator;
       activityEditorRef.current = activityEditor;
       let workplaceEditor = new JSONEditor(workplaceEditorContainer, workplaceOptions);
-      workplaceEditor.set(workplaceExample);
       workplaceEditor.validate = workplaceValidator;
       workplaceEditorRef.current = workplaceEditor;
+
+      if (options.appActivity || options.appWorkplace) {
+        if (options.appActivity) {
+          fetch(options.appActivity)
+            .then(response => response.json())
+            .then(activityJson => {
+              activityEditor.set(activityJson);
+            });
+        }
+        if (options.appWorkplace) {
+          fetch(options.appWorkplace)
+            .then(response => response.json())
+            .then(workplaceJson => {
+              workplaceEditor.set(workplaceJson);
+            });
+        }
+      } else {
+        activityEditor.set(activityExample);
+        workplaceEditor.set(workplaceExample);
+      }
     });
   }, []); // empty deps array in order for this to run only once
 
