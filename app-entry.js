@@ -1,3 +1,4 @@
+import './webpack.path.js'; // needs to be first
 import app from './app.js';
 
 {
