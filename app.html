@@ -10,14 +10,13 @@
   <body class="my-3">
     <div class="container-fluid">
       <h1>
-        ARLEM JSON Validator <small class="text-muted">ALPHA</small>
+        ARLEM JSON Validator <small class="text-muted">BETA</small>
       </h1>
-      <div class="alert alert-warning" role="alert">
-        The validator is still in development and not to be used for actual validation yet.
-      </div>
-      <div id="container">
+      <div>
         <noscript>JavaScript needs to be enabled.</noscript>
-        <script src="arlem.js" onerror="window.location.href='app-main.html'"></script>
+        <script src="arlem.js" data-app-activity="src/editor/activityExample.json"
+          data-app-workplace="src/editor/workplaceExample.json"
+          onerror="window.location.href='app-main.html'"></script>
       </div>
       <footer class="my-3">
         <a href="https://github.com/openARLEM/arlem.js">GitHub</a>

@@ -1,5 +1,67 @@
 {
-  "id": "myworkplace",
-  "name": "My Workplace",
-  "origin": "001"
+  "id": "workplace1",
+  "name": "Demo Workplace for Case 1",
+  "origin": "001",
+
+  "things": [
+    {
+      "id": "urn:epc:id:sgtin:0088591.1209823",
+      "name": "Bosch Power Drill",
+      "detectable": "startingAnchor",
+      "pois": [
+        {
+          "id": "default",
+          "offset": "0,0,0"
+        },
+        {
+          "id": "start-button",
+          "offset": "0.2, 0, 0"
+        }
+      ]
+    },
+    {
+      "id": "board1",
+      "name": "Cabinet Board (1)",
+      "detectable": "boardanchor",
+      "pois": [
+        {
+          "id": "default",
+          "offset": "0, 0, 0"
+        },
+        {
+          "id": "topleftconer",
+          "offset": "0, 1.53, 0"
+        }
+      ]
+    }
+  ],
+
+  "places": [],
+
+  "persons": [],
+
+  "sensors": [],
+
+  "devices": [],
+
+  "apps": [],
+
+  "detectables": [
+    {
+      "id": "001",
+      "sensor": "tracking",
+      "type": "marker",
+      "url": "marker001.asset"
+    },
+    {
+      "id": "boardanchor",
+      "type": "anchor",
+      "origin_position": "5, 0, -1.55",
+      "origin_rotation": "90, 0, 0"
+    }
+  ],
+
+  "predicates": [],
+  "warnings": [],
+  "hazards": []
 }
