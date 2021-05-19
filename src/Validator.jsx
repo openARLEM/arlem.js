@@ -78,18 +78,48 @@ export default function Validator({ options }) {
             .then(response => response.json())
             .then(activityJson => {
               activityEditor.set(activityJson);
+            })
+            .catch(error => {
+              alert('Error loading activity model: ' + error)
+            })
+            .finally(() => {
+              if (options.appActivityRef) {
+                window[options.appActivityRef] = activityEditor;
+              }
             });
+        } else {
+          if (options.appActivityRef) {
+            window[options.appActivityRef] = activityEditor;
+          }
         }
         if (options.appWorkplace) {
           fetch(options.appWorkplace)
             .then(response => response.json())
             .then(workplaceJson => {
               workplaceEditor.set(workplaceJson);
+            })
+            .catch(error => {
+              alert('Error loading workplace model: ' + error)
+            })
+            .finally(() => {
+              if (options.appWorkplaceRef) {
+                window[options.appWorkplaceRef] = workplaceEditor;
+              }
             });
+        } else {
+          if (options.appWorkplaceRef) {
+            window[options.appWorkplaceRef] = workplaceEditor;
+          }
         }
       } else {
         activityEditor.set(activityExample);
+        if (options.appActivityRef) {
+          window[options.appActivityRef] = activityEditor;
+        }
         workplaceEditor.set(workplaceExample);
+        if (options.appWorkplaceRef) {
+          window[options.appWorkplaceRef] = workplaceEditor;
+        }
       }
     });
   }, []); // empty deps array in order for this to run only once
