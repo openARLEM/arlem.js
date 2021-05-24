@@ -1,5 +1,4 @@
 # arlem.js
-
 ## A JSON validator for checking ARLEM (IEEE-SA p1589-2020) compliance
 
 ### Erik Isaksson (UCD, KTH), Fridolin Wild (OU), Abbas Jafari (OU)
