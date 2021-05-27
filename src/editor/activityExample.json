@@ -1,8 +1,131 @@
 {
-  "id": "assembly101",
-  "name": "Assembly of an artifact",
-  "description": "An elaborate description",
+  "id": "case1",
+  "name": "Case 1: change things",
+  "description": "Demo of case 1",
   "language": "en",
-  "workplace": "http://example.org/workplace.json",
-  "start": "step1"
+  "workplace": "case-1-workplace.json",
+  "start": "step1",
+
+  "actions": [
+    {
+      "id": "step1",
+      "viewport": "actions",
+      "type": "actions",
+
+      "enter": {
+        "removeSelf": false,
+        "activates": [
+          {
+            "target": "BoschPowerDrill",
+            "type": "predicate",
+            "augmentation": "press",
+            "poi": "start-button"
+          }
+        ],
+
+        "deactivates": []
+      },
+      "exit": {
+        "removeSelf": false,
+
+        "activates": [
+          {
+            "augmentation": "step2",
+            "type": "action"
+          }
+        ],
+
+        "deactivates": [
+          {
+            "id": "step1",
+            "type": "action"
+          },
+          {
+            "target": "BoschPowerDrill",
+            "type": "predicate",
+            "augmentation": "press",
+            "poi": "start-button"
+          }
+        ]
+      },
+
+      "triggers": [
+        {
+          "mode": "click",
+          "type": "action",
+          "viewport": "actions",
+          "id": "start"
+        },
+        {
+          "mode": "voice",
+          "type": "action",
+          "id": "start"
+        }
+      ],
+
+      "instruction": {
+        "title": "Step 1: turn on the machine",
+        "description": "Press the on-off button once."
+      }
+    },
+
+    {
+      "id": "step2",
+      "type": "actions",
+      "viewport": "actions",
+
+      "enter": {
+        "removeSelf": false,
+
+        "activates": [
+          {
+            "target": "board1",
+            "type": "predicate",
+            "augmentation": "locate",
+            "poi": "topleftcorner"
+          }
+        ],
+
+        "deactivates": []
+      },
+      "exit": {
+        "removeSelf": false,
+        "activates": [
+        ],
+
+        "deactivates": [
+          {
+            "id": "step1",
+            "type": "actions",
+            "viewport": "actions"
+          },
+          {
+            "target": "board1",
+            "type": "predicate",
+            "augmentation": "locate",
+            "poi": "topleftcorner"
+          }
+        ]
+      },
+
+      "triggers": [
+        {
+          "mode": "click",
+          "type": "action",
+          "viewport": "actions",
+          "id": "start"
+        },
+        {
+          "mode": "voice",
+          "type": "action",
+          "id": "start"
+        }
+      ],
+
+      "instruction": {
+        "title": "Step 2: Drill here",
+        "description": "Drill a hole where indicated."
+      }
+    }
+  ]
 }

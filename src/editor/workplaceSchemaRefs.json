@@ -1,0 +1,91 @@
+{
+  "pois": {
+    "title": "POIs",
+    "description": "Points of interest",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "x-offset",
+        "y-offset",
+        "z-offset",
+        "x-rotation",
+        "y-rotation",
+        "z-rotation"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Unique identifier",
+          "examples": [
+            "default"
+          ],
+          "type": "string",
+          "maxLength": 100
+        },
+        "x-offset": {
+          "title": "X-offset",
+          "description": "Offset on x-axis (in cm.mm 0.00-1000.00, as float in string)",
+          "examples": [
+            "0",
+            "1.15"
+          ],
+          "type": "string",
+          "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+        },
+        "y-offset": {
+          "title": "Y-offset",
+          "description": "Offset on y-axis (in cm.mm 0.00-1000.00, as float in string)",
+          "examples": [
+            "0",
+            "-1.45"
+          ],
+          "type": "string",
+          "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+        },
+        "z-offset": {
+          "title": "Z-offset",
+          "description": "Offset on z-axis (in cm.mm 0.00-1000.00, as float in string)",
+          "examples": [
+            "0",
+            "-0.85"
+          ],
+          "type": "string",
+          "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+        },
+        "x-rotation": {
+          "title": "X-rotation",
+          "description": "Pitch in Euler angles (degrees 0.000-360.000, as float in string)",
+          "examples": [
+            "0",
+            "1.15"
+          ],
+          "type": "string",
+          "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+        },
+        "y-rotation": {
+          "title": "Y-rotation",
+          "description": "Yaw in Euler angles (degrees 0.000-360.000, as float in string)",
+          "examples": [
+            "0",
+            "-1.45"
+          ],
+          "type": "string",
+          "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+        },
+        "z-rotation": {
+          "title": "Z-rotation",
+          "description": "Roll in Euler angles (degrees 0.000-360.000, as float in string)",
+          "examples": [
+            "0",
+            "-0.85"
+          ],
+          "type": "string",
+          "pattern": "^[\\-]?([0-9]+\\.)?[0-9]+$"
+        }
+      }
+    }
+  }
+}
