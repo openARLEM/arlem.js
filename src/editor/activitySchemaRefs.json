@@ -1,7 +1,7 @@
 {
   "activates": {
     "title": "Activates",
-    "description": "Statement to execute effector output: load and display an augmentation to the user",
+    "description": "Activation statements",
     "type": "array",
     "items": {
       "type": "object",
@@ -14,7 +14,7 @@
       "properties": {
         "target": {
           "title": "Target",
-          "description": "Reference to unique identifier of a tangible in the workplace model (thing.id, place.id, or person.id)",
+          "description": "Reference to tangible (thing.id, place.id, or person.id)",
           "examples": [
             "board1"
           ],
@@ -23,7 +23,7 @@
         },
         "type": {
           "title": "Type",
-          "description": "Specify which augmentation type the id refers to (\"primitive\", \"predicate\", \"warning\", or \"action\")",
+          "description": "Augmentation type (\"primitive\", \"predicate\", \"warning\", or \"action\")",
           "enum": [
             "primitive",
             "predicate",
@@ -35,7 +35,7 @@
         },
         "augmentation": {
           "title": "Augmentation",
-          "description": "Instruct the AR training system to play or display the augmentation with the target id provided (predicate.id, primitive.id, warning.id, or action.id)",
+          "description": "Reference to augmentation to be played or displayed (predicate.id, primitive.id, warning.id, or action.id)",
           "examples": [
             "point"
           ],
@@ -44,7 +44,7 @@
         },
         "poi": {
           "title": "POI",
-          "description": "Specify the point of interest of the tangible where the augmentation will be displayed (poi.id of tangible's poi in workplace model)",
+          "description": "Reference to point of interest of tangible for display of augmentation (poi.id of tangible)",
           "examples": [
             "top"
           ],
@@ -53,7 +53,7 @@
         },
         "option": {
           "title": "Option",
-          "description": "Configuration option for the augmentation",
+          "description": "Option for the specific augmentation",
           "examples": [
             "up",
             "stream"
@@ -63,7 +63,7 @@
         },
         "viewport": {
           "title": "Viewport",
-          "description": "Specify the area of the display where the augmentation is to be displayed (\"actions\", \"reactions\", or \"warnings\")",
+          "description": "Display area where the augmentation is displayed (\"actions\", \"reactions\", or \"warnings\")",
           "enum": [
             "actions",
             "reactions",
@@ -74,7 +74,7 @@
         },
         "url": {
           "title": "URL",
-          "description": "URL from which to load, in the case that \"type\" is \"primitive\" and depending on the value of \"augmentation\", a JPEG/PNG image or MP4 video file (\"augmentation\" is \"image\" or \"video\"), an animation FBX file (\"augmentation\" is \"animation\"), or WAV or MP3 file (\"augmentation\" is \"audio\")",
+          "description": "URL for loading (when \"type\" is \"primitive\" and depending on the value of \"augmentation\") a JPEG/PNG image or MP4 video file (\"augmentation\" is \"image\" or \"video\"), an animation FBX file (\"augmentation\" is \"animation\"), or WAV or MP3 file (\"augmentation\" is \"audio\")",
           "examples": [
             "https://example.org/my3d.fbx"
           ],
@@ -84,7 +84,7 @@
         },
         "state": {
           "title": "State",
-          "description": "The key frame to move to in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"animation\"",
+          "description": "Key frame to move to (when \"type\" is \"primitive\" and  \"augmentation\" is \"animation\")",
           "example": [
             "1"
           ],
@@ -93,7 +93,7 @@
         },
         "text": {
           "title": "text",
-          "description": "The character string to display at a specific tangible's default location, or any specific POI of the tangible, in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"label\"",
+          "description": "Text to display at a tangible's default location or any of its specific POIs (when \"type\" is \"primitive\" and  \"augmentation\" is \"label\")",
           "example": [
             "This is the left side"
           ],
@@ -101,8 +101,8 @@
           "maxLength": 100
         },
         "sensor": {
-          "title": "text",
-          "description": "Id of sensor that may be connected to for displaying data of variable specified in \"key\", in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"label\"",
+          "title": "Sensor",
+          "description": "Reference to sensor used for displaying data of variable specified in \"key\" (when \"type\" is \"primitive\" and  \"augmentation\" is \"label\")",
           "example": [
             "arduino"
           ],
@@ -110,8 +110,8 @@
           "maxLength": 100
         },
         "key": {
-          "title": "text",
-          "description": "Variable for which to display data after connecting to sensor with id specified in \"sensor\", in the case that \"type\" is \"primitive\" and  \"augmentation\" is \"label\"",
+          "title": "Key",
+          "description": "Variable for displaying data using the referenced sensor (when \"type\" is \"primitive\" and  \"augmentation\" is \"label\")",
           "example": [
             "voltage"
           ],
@@ -123,7 +123,7 @@
   },
   "deactivates": {
     "title": "Deactivates",
-    "description": "Statement to remove augmentations",
+    "description": "Deactivation statements",
     "type": "array",
     "items": {
       "type": "object",
@@ -136,7 +136,7 @@
       "properties": {
         "target": {
           "title": "Target",
-          "description": "Specify target id of a tangible in the workplace model to remove all or specific augmentations attached to it, or an action.id from the activity, or use wildcard \"*\" to remove from all tangibles (thing.id, place.id, person.id, action.id, or \"*\")",
+          "description": "Reference to tangible or action, or wildcard \"*\" to remove from all (thing.id, place.id, person.id, action.id, or \"*\")",
           "examples": [
             "board1"
           ],
@@ -145,7 +145,7 @@
         },
         "type": {
           "title": "Type",
-          "description": "Specify which type of workplace element the id references, or use wildcard \"*\" for all types (\"primitive\", \"predicate\", \"warning\", \"action\", or \"*\")",
+          "description": "Augmentation type, or wildcard \"*\" for all types (\"primitive\", \"predicate\", \"warning\", \"action\", or \"*\")",
           "enum": [
             "primitive",
             "predicate",
@@ -158,7 +158,7 @@
         },
         "augmentation": {
           "title": "Augmentation",
-          "description": "Specify id of the augmentation or action to remove, or use wildcard \"*\" for all augmentations (predicate.id, primitive.id, warning.id, action.id, or \"*\")",
+          "description": "Reference to augmentation or action to be removed, or use wildcard \"*\" (predicate.id, primitive.id, warning.id, action.id, or \"*\")",
           "examples": [
             "point"
           ],
@@ -167,7 +167,7 @@
         },
         "poi": {
           "title": "POI",
-          "description": "Specify the point of interest from where to remove the augmentation (poi.id of the tangible referenced in \"target\")",
+          "description": "Reference to point of interest of tangible for removal of augmentation (poi.id of tangible)",
           "examples": [
             "top"
           ],
@@ -176,7 +176,7 @@
         },
         "viewport": {
           "title": "Viewport",
-          "description": "Specify from which viewport to remove the augmentation (\"actions\", \"reactions\", or \"warnings\")",
+          "description": "Display area where the augmentation is removed (\"actions\", \"reactions\", or \"warnings\")",
           "enum": [
             "actions",
             "reactions",
@@ -190,7 +190,7 @@
   },
   "messages": {
     "title": "Messages",
-    "description": "Specify message statements to allow sending control commands and communication from device to device and user to user",
+    "description": "Message statements for control commands and communication from device to device and user to user",
     "type": "array",
     "items": {
       "type": "object",
@@ -211,7 +211,7 @@
         },
         "type": {
           "title": "Type",
-          "description": "Whether to send a communication message to a person or a control message to a device or sensor (\"person\", \"device\", or \"sensor\")",
+          "description": "Whether this is a communication message to a person or a control message to a device or sensor (\"person\", \"device\", or \"sensor\")",
           "enum": [
             "person",
             "device",
@@ -222,7 +222,7 @@
         },
         "viewport": {
           "title": "Viewport",
-          "description": "Specify a particular viewport in which to display the message (\"alerts\", \"actions\", or \"reactions\")",
+          "description": "Display area where the message is displayed (\"alerts\", \"actions\", or \"reactions\")",
           "enum": [
             "alerts",
             "actions",
@@ -233,7 +233,7 @@
         },
         "key": {
           "title": "text",
-          "description": "Specify which variable key (MQTT \"topic\") to use for broadcasting the message contents",
+          "description": "Variable (MQTT \"topic\") to use for broadcast of message",
           "example": [
             "messages"
           ],
@@ -242,7 +242,7 @@
         },
         "launch": {
           "title": "text",
-          "description": "Specify which action shall be launched on the recipient device (action.id)",
+          "description": "Action that is launched on the recipient device (action.id)",
           "example": [
             "action15"
           ],
@@ -251,7 +251,7 @@
         },
         "text": {
           "title": "text",
-          "description": "The message content as human readable text is included as the text node of the message element",
+          "description": "Message content as human readable text",
           "example": [
             "Job is done!"
           ],
@@ -263,7 +263,7 @@
   },
   "if": {
     "title": "If",
-    "description": "Specify a rule for validating user behavior and other characteristics with defined queries to determine branching of the flow of action",
+    "description": "Rule for validating user behavior and other characteristics",
     "type": "array",
     "items": {
       "type": "object",
@@ -276,7 +276,7 @@
       "properties": {
         "url": {
           "title": "URL",
-          "description": "The query URL (for statement retrieval via GET), including all parameters",
+          "description": "Query URL including all parameters",
           "examples": [
             "http://example.com/xAPI/statements?verb=passed&activity=id"
           ],
@@ -286,7 +286,7 @@
         },
         "then": {
           "title": "Then",
-          "description": "Specify which action to trigger if the query yields one or more (or the specified number) of results (action.id)",
+          "description": "Reference to action to trigger if the query yields one or more, or the specified number, of results (action.id)",
           "examples": [
             "startAction"
           ],
@@ -295,7 +295,7 @@
         },
         "else": {
           "title": "Else",
-          "description": "Specify which action to trigger if the query yields no results (action.id)",
+          "description": "Reference to action to trigger if the query yields no results (action.id)",
           "examples": [
             "prohibitAction"
           ],
@@ -304,7 +304,7 @@
         },
         "min": {
           "title": "Min",
-          "description": "Check whether there are at least this number of results",
+          "description": "Minimum number of results",
           "example": [
             "2"
           ],
@@ -314,7 +314,7 @@
         },
         "max": {
           "title": "Max",
-          "description": "Check whether there are no more than this number of results",
+          "description": "Maximum number of results",
           "example": [
             "10"
           ],

@@ -1,7 +1,7 @@
 {
   "pois": {
     "title": "POIs",
-    "description": "List of points of interest for this tangible (thing, place, or person)",
+    "description": "Points of interest",
     "type": "array",
     "items": {
       "type": "object",
@@ -27,7 +27,7 @@
         },
         "x-offset": {
           "title": "X-offset",
-          "description": "The offset on the x-axis (in cm.mm 0.00-1000.00, as float in string)",
+          "description": "Offset on x-axis (in cm.mm 0.00-1000.00, as float in string)",
           "examples": [
             "0",
             "1.15"
@@ -37,7 +37,7 @@
         },
         "y-offset": {
           "title": "Y-offset",
-          "description": "The offset on the y-axis (in cm.mm 0.00-1000.00, as float in string)",
+          "description": "Offset on y-axis (in cm.mm 0.00-1000.00, as float in string)",
           "examples": [
             "0",
             "-1.45"
@@ -47,7 +47,7 @@
         },
         "z-offset": {
           "title": "Z-offset",
-          "description": "The offset on the z-axis (in cm.mm 0.00-1000.00, as float in string)",
+          "description": "Offset on z-axis (in cm.mm 0.00-1000.00, as float in string)",
           "examples": [
             "0",
             "-0.85"

@@ -1,6 +1,6 @@
 {
   "title": "Workplace",
-  "description": "Object containing workplace details",
+  "description": "Workplace details",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,7 +11,7 @@
   "properties": {
     "id": {
       "title": "Id",
-      "description": "Unique identifier of the workplace",
+      "description": "Unique identifier",
       "examples": [
         "myworkplace"
       ],
@@ -20,7 +20,7 @@
     },
     "name": {
       "title": "Name",
-      "description": "Human readable descriptive name of the workplace",
+      "description": "Human-readable name",
       "examples": [
         "My workplace"
       ],
@@ -29,7 +29,7 @@
     },
     "origin": {
       "title": "Origin",
-      "description": "The id of a detectable that marks the world origin for the work place",
+      "description": "Id of detectable marking the world origin",
       "examples": [
         "001"
       ],
@@ -38,7 +38,7 @@
     },
     "things": {
       "title": "Things",
-      "description": "An array of definitions of the physical workplace objects such as tools, machines, furniture, or materials",
+      "description": "Physical workplace objects such as tools, machines, furniture, or materials",
       "type": "array",
       "items": {
         "type": "object",
@@ -51,7 +51,7 @@
         "properties": {
           "id": {
             "title": "Id",
-            "description": "Unique identifier of the thing",
+            "description": "Unique identifier",
             "examples": [
               "helicopter"
             ],
@@ -60,7 +60,7 @@
           },
           "name": {
             "title": "Name",
-            "description": "Human-readable short description of the thing",
+            "description": "Human-readable short description",
             "examples": [
               "AW 109"
             ],
@@ -69,7 +69,7 @@
           },
           "detectable": {
             "title": "Detectable",
-            "description": "Specify by id which detectable applies to this thing",
+            "description": "Id of detectable",
             "examples": [
               "333"
             ],
@@ -84,7 +84,7 @@
     },
     "places": {
       "title": "Places",
-      "description": "Places are tangibles, referring to locations within the workplace",
+      "description": "Tangibles which are locations",
       "type": "array",
       "items": {
         "type": "object",
@@ -97,7 +97,7 @@
         "properties": {
           "id": {
             "title": "Id",
-            "description": "Unique identifier of the place",
+            "description": "Unique identifier",
             "examples": [
               "platform"
             ],
@@ -106,7 +106,7 @@
           },
           "name": {
             "title": "Name",
-            "description": "Human-readable short description of the place",
+            "description": "Human-readable short description",
             "examples": [
               "Platform"
             ],
@@ -115,7 +115,7 @@
           },
           "detectable": {
             "title": "Detectable",
-            "description": "Specify by id which detectable is to be used for recognizing this place",
+            "description": "Id of detectable",
             "examples": [
               "006"
             ],
@@ -130,7 +130,7 @@
     },
     "persons": {
       "title": "Persons",
-      "description": "Persons refer to the people in the workplace with whom the user may interact",
+      "description": "People with whom the user may interact",
       "type": "array",
       "items": {
         "type": "object",
@@ -146,7 +146,7 @@
         "properties": {
           "id": {
             "title": "Id",
-            "description": "Unique identifier of the person",
+            "description": "Unique identifier",
             "examples": [
               "john"
             ],
@@ -155,7 +155,7 @@
           },
           "name": {
             "title": "Name",
-            "description": "The individual's name",
+            "description": "Person's name",
             "examples": [
               "John Smith"
             ],
@@ -164,7 +164,7 @@
           },
           "twitter": {
             "title": "Twitter",
-            "description": "The individual's Twitter handle",
+            "description": "Person's Twitter handle",
             "examples": [
               "example"
             ],
@@ -173,7 +173,7 @@
           },
           "mbox": {
             "title": "Mbox",
-            "description": "The identifier to be used for the xAPI (email address)",
+            "description": "Id used in xAPI (email address)",
             "examples": [
               "john.smith@example.com"
             ],
@@ -182,7 +182,7 @@
           },
           "detectable": {
             "title": "Detectable",
-            "description": "The id of the detectable with which this person can be recognized",
+            "description": "Id of detectable",
             "examples": [
               "002"
             ],
@@ -197,7 +197,7 @@
     },
     "sensors": {
       "title": "Sensors",
-      "description": "Sensors are hardware devices that detect or measure physical characteristics and communicate the data generated digitially",
+      "description": "Devices that detect or measure physical characteristics",
       "type": "array",
       "items": {
         "type": "object",
@@ -220,7 +220,7 @@
           },
           "url": {
             "title": "URL",
-            "description": "API endpoint for IoT communication (URL including protocol and port)",
+            "description": "API endpoint (URL including protocol and port)",
             "examples": [
               "mqtt://wekit.eu:1883"
             ],
@@ -230,7 +230,7 @@
           },
           "username": {
             "title": "User name",
-            "description": "Authentication information",
+            "description": "User name for authentication",
             "examples": [
               "wekit"
             ],
@@ -239,7 +239,7 @@
           },
           "password": {
             "title": "Password",
-            "description": "Authentication information",
+            "description": "Password for authentication",
             "examples": [
               "secret"
             ],
@@ -248,7 +248,7 @@
           },
           "data": {
             "title": "Data",
-            "description": "One or more data elements describe how to parse the data stream",
+            "description": "Data elements used when parsing the data stream",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -261,7 +261,7 @@
               "properties": {
                 "key": {
                   "title": "Key",
-                  "description": "The variable identifier in the data stream",
+                  "description": "Variable in the data stream",
                   "examples": [
                     "heartrate"
                   ],
@@ -270,7 +270,7 @@
                 },
                 "type": {
                   "title": "Type",
-                  "description": "The data type of the variable (\"string\", \"float\", \"integer\", or \"boolean\")",
+                  "description": "Variable data type (\"string\", \"float\", \"integer\", or \"boolean\")",
                   "enum": [
                     "string",
                     "float",
@@ -288,7 +288,7 @@
     },
     "devices": {
       "title": "Devices",
-      "description": "Devices are the AR hardware delivery systems that the AR training system may communicate with to render the learning experience for the user",
+      "description": "AR hardware delivery systems",
       "type": "array",
       "items": {
         "type": "object",
@@ -313,7 +313,7 @@
           },
           "type": {
             "title": "Type",
-            "description": "Type of device",
+            "description": "Device type",
             "examples": [
               "hololens",
               "ipad"
@@ -323,7 +323,7 @@
           },
           "name": {
             "title": "Name",
-            "description": "Human-readable name of the device",
+            "description": "Human-readable name",
             "examples": [
               "My smart glasses"
             ],
@@ -332,7 +332,7 @@
           },
           "owner": {
             "title": "Owner",
-            "description": "The person id of the owner of a device",
+            "description": "Id of person who owns device",
             "examples": [
               "john"
             ],
@@ -341,7 +341,7 @@
           },
           "url": {
             "title": "URL",
-            "description": "API endpoint for device communication (URL including protocol and port)",
+            "description": "API endpoint (URL including protocol and port)",
             "examples": [
               "mqtt://test.mosquitto.org:1883"
             ],
@@ -351,7 +351,7 @@
           },
           "topic": {
             "title": "Topic",
-            "description": "The channel name on which the device listens for messages",
+            "description": "Channel name on which the device listens",
             "examples": [
               "hangarchat"
             ],
@@ -360,7 +360,7 @@
           },
           "username": {
             "title": "User name",
-            "description": "Authentication information",
+            "description": "User name for authentication",
             "examples": [
               "wekit"
             ],
@@ -369,7 +369,7 @@
           },
           "password": {
             "title": "Password",
-            "description": "Authentication information",
+            "description": "Password for authentication",
             "examples": [
               "secret"
             ],
@@ -381,7 +381,7 @@
     },
     "apps": {
       "title": "Apps",
-      "description": "Definitions of how to interface the AR training system with other apps and widgets",
+      "description": "Apps and widgets",
       "type": "array",
       "items": {
         "type": "object",
@@ -395,7 +395,7 @@
         "properties": {
           "type": {
             "title": "Type",
-            "description": "Type of application: HTML widget, launch command, or app prefab (\"widget\", \"app\", or \"prefab\")",
+            "description": "Application type: HTML widget, launch command, or app prefab (\"widget\", \"app\", or \"prefab\")",
             "enum": [
               "widget",
               "app",
@@ -424,7 +424,7 @@
           },
           "url": {
             "title": "URL",
-            "description": "URL of the manifest file, launch command, or download link for an app prefab asset (URL)",
+            "description": "URL of manifest file, launch command, or download link for app prefab asset (URL)",
             "examples": [
               "http://wekit.eu/rating.wdgt"
             ],
@@ -437,7 +437,7 @@
     },
     "detectables": {
       "title": "Detectables",
-      "description": "Detectables are entities that link to fiducial markers, target feature models, or other sensor state properties providing input to the computer vision system",
+      "description": "Entities that link to fiducial markers, target feature models, or other sensor state properties",
       "type": "array",
       "items": {
         "type": "object",
@@ -458,7 +458,7 @@
           },
           "sensor": {
             "title": "Sensor",
-            "description": "The type of AR tracking subsystem to be used for its detection (\"tracking\" or \"mapping\"))",
+            "description": "AR tracking subsystem type (\"tracking\" or \"mapping\"))",
             "enum": [
               "tracking",
               "mapping"
@@ -468,7 +468,7 @@
           },
           "type": {
             "title": "Type",
-            "description": "May be either a marker or workplace anchor relative to the worplace origin (\"marker\" or \"anchor\")",
+            "description": "Whether a marker or anchor relative to the origin (\"marker\" or \"anchor\")",
             "enum": [
               "marker",
               "anchor"
@@ -478,7 +478,7 @@
           },
           "url": {
             "title": "URL",
-            "description": "URL pointing to the asset bundle with additional data (URL)",
+            "description": "URL for asset bundle with additional data (URL)",
             "examples": [
               "http://wekit.eu/rating.wdgt"
             ],
@@ -491,7 +491,7 @@
     },
     "primitives": {
       "title": "Primitives",
-      "description": "Augmentation primitives define the fundamental types of annotations available in the AR system",
+      "description": "Fundamental types of annotations",
       "type": "array",
       "items": {
         "type": "object",
@@ -515,7 +515,7 @@
           },
           "x-size": {
             "title": "X-size",
-            "description": "Initial sizing values for images and objects (cm.mm 0.01-1000.00, as float in string)",
+            "description": "Initial size for images and objects (cm.mm 0.01-1000.00, as float in string)",
             "examples": [
               "0.01"
             ],
@@ -524,7 +524,7 @@
           },
           "y-size": {
             "title": "Y-size",
-            "description": "Initial sizing values for images and objects (cm.mm 0.01-1000.00, as float in string)",
+            "description": "Initial size for images and objects (cm.mm 0.01-1000.00, as float in string)",
             "examples": [
               "0.01"
             ],
@@ -533,7 +533,7 @@
           },
           "z-size": {
             "title": "Z-size",
-            "description": "Initial sizing values for images and objects (cm.mm 0.01-1000.00, as float in string)",
+            "description": "Initial size for images and objects (cm.mm 0.01-1000.00, as float in string)",
             "examples": [
               "0.01"
             ],
@@ -542,7 +542,7 @@
           },
           "volume": {
             "title": "Volume",
-            "description": "A volume setting, used for auditory primitives (integer 0-100)",
+            "description": "Volume setting used for auditory primitives (integer 0-100)",
             "examples": [
               50
             ],
@@ -555,7 +555,7 @@
     },
     "predicates": {
       "title": "Predicates",
-      "description": "Predicates are reusable instructional augmentations, configuring a specific augmentation primitive augmentation primitive for its use in activities",
+      "description": "Reusable instructional augmentations",
       "type": "array",
       "items": {
         "type": "object",
@@ -578,7 +578,7 @@
           },
           "type": {
             "title": "Type",
-            "description": "An instance of primitive.id (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
+            "description": "Type (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
             "enum": [
               "animation",
               "image",
@@ -591,7 +591,7 @@
           },
           "scale": {
             "title": "Scale",
-            "description": "A (normalized) scaling factor to be applied to the primitive, across all axes (cm.mm 0.01-1000.00, as float in string)",
+            "description": "Normalized scaling factor (cm.mm 0.01-1000.00, as float in string)",
             "examples": [
               "1"
             ],
@@ -600,7 +600,7 @@
           },
           "url": {
             "title": "URL",
-            "description": "URL pointing to a downloadable file with the augmentation (URL)",
+            "description": "URL for file with the augmentation (URL)",
             "examples": [
               "http://wekit.eu/point.fbx"
             ],
@@ -613,7 +613,7 @@
     },
     "warnings": {
       "title": "Warnings",
-      "description": "Definition of the supported warnings and instructions",
+      "description": "Supported warnings and instructions",
       "type": "array",
       "items": {
         "type": "object",
@@ -636,7 +636,7 @@
           },
           "type": {
             "title": "Type",
-            "description": "An instance of primitive.id (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
+            "description": "Type (\"animation\", \"image\", \"video\", \"audio\", or \"label\")",
             "enum": [
               "animation",
               "image",
@@ -649,7 +649,7 @@
           },
           "symbol": {
             "title": "Symbol",
-            "description": "Name of the symbol prefab",
+            "description": "Symbol prefab name",
             "examples": [
               "eyeprotection"
             ],
@@ -658,7 +658,7 @@
           },
           "scale": {
             "title": "Scale",
-            "description": "A (normalized) scaling factor to be applied to the primitive, across all axes (cm.mm 0.01-1000.00, as float in string)",
+            "description": "Normalized scaling factor (cm.mm 0.01-1000.00, as float in string)",
             "examples": [
               "1"
             ],

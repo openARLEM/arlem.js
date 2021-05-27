@@ -173,15 +173,21 @@ export default function Validator({ options }) {
     }
 
     if (activity && workplace && validationType === 'all') {
-      // Analyze workplace
+      // Analyze workplace + actions in activity
+      let combined = { ...workplace };
+      if (activity.actions) {
+        combined.actions = activity.actions;
+      }
+
+      // Collect all objects for each type + a special wildcard type with a wildcard object
       const objectTypes = ['things', 'places', 'persons', 'sensors', 'devices', 'apps',
-        'detectables', 'primitives', 'predicates', 'warnings'];
+        'detectables', 'primitives', 'predicates', 'warnings', 'actions'];
       let objectIds = objectTypes.reduce((aggr, objectType) => {
-        aggr[objectType] = Array.isArray(workplace[objectType])
-          ? workplace[objectType].map(obj => obj.id)
+        aggr[objectType] = Array.isArray(combined[objectType])
+          ? combined[objectType].map(obj => obj.id)
           : [];
         return aggr;
-      }, {});
+      }, { '*': ['*'] });
 
       // Cross-references
       const referenceTypes = [
@@ -189,11 +195,11 @@ export default function Validator({ options }) {
         { path: ['actions'], property: 'location', types: ['places'] },
         { path: ['actions'], property: 'predicate', types: ['predicates'] },
         { path: ['actions', 'enter', 'activates'], property: 'target', types: ['things', 'places', 'persons'] },
-        { path: ['actions', 'enter', 'activates'], property: 'augmentation', types: ['predicates', 'primitives', 'warnings'] }, // TODO actions
-        { path: ['actions', 'enter', 'activates'], property: 'poi', types: ['things', 'places', 'persons'] }, // TODO Verify (only) these are tangible
+        { path: ['actions', 'enter', 'activates'], property: 'augmentation', types: ['predicates', 'primitives', 'warnings', 'actions'] },
+        { path: ['actions', 'enter', 'activates'], property: 'poi', types: ['things', 'places', 'persons'] },
         { path: ['actions', 'enter', 'deactivates'], property: 'target', types: ['things', 'places', 'persons'] },
-        { path: ['actions', 'enter', 'deactivates'], property: 'augmentation', types: ['predicates', 'primitives', 'warnings'] }, // TODO actions, wildcard ('*')
-        { path: ['actions', 'enter', 'deactivates'], property: 'poi', types: ['things', 'places', 'persons'] } // TODO Verify (only) these are tangible
+        { path: ['actions', 'enter', 'deactivates'], property: 'augmentation', types: ['predicates', 'primitives', 'warnings', 'actions', '*'] },
+        { path: ['actions', 'enter', 'deactivates'], property: 'poi', types: ['things', 'places', 'persons'] }
       ];
       let referenceErrors = [];
       const checkReferences = (current = {}, path, dataPath, property, types) => {
