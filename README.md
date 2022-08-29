@@ -8,3 +8,7 @@ This project implements a set of test routines and a web user interface for eval
 The web app is also hosted on GitHub pages and can be tested [here](https://openarlem.github.io/arlem.js/app.html).
 
 The app is also directly integrated into the [Moodle ARLEM repository plugin](https://github.com/ARETEedu/moodle-ARLEM_repository), there providing editing facilities for stored ARLEM content archives.
+
+## Build
+
+Run `npm install` followed by `npm run compile` to build arlem.js (as well as extra assets that will be needed alongside the main arlem.js asset, e.g., arlem.1.js). A webpack dev server with hot module replacement enabled can be run using `npm run serve -- --port 8081`, which is then accessible at `http://localhost:8081/app.html` (run `npm run serve -- --help` for options). Run `npm run clean` to delete built files.
